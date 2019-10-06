@@ -14,14 +14,15 @@ double get_sec()
 
 void dgemm0(double *a, double *b, double *c, int n)
 {
+    int i,j,k;
     double t0,t2;
     double optimized_time;
 //    clock_t run_start,run_finish;
 //    run_start = clock();
     t0 = get_sec();
-    for(int i =0;i<n;i++){
-        for (int j = 0; j < n ; j++){
-            for(int k=0;k<n;k++){
+    for(i =0;i<n;i++){
+        for (j = 0; j < n ; j++){
+            for(k=0;k<n;k++){
                 c[i*n+j] += a[i*n+k] * b[k*n+j];
             }
         }
@@ -37,14 +38,14 @@ void dgemm0(double *a, double *b, double *c, int n)
 }
 
 void dgemm1(double *a, double *b, double *c, int n){
-
+    int i,j,k;
     double t0,t2;
     double optimized_time;
     t0 = get_sec();
-    for (int i=0; i<n; i++)
-        for (int j=0; j<n; j++) {
+    for (i=0; i<n; i++)
+        for (j=0; j<n; j++) {
             register double r = c[i*n+j] ;
-            for (int k=0; k<n; k++)
+            for (k=0; k<n; k++)
                 r += a[i*n+k] * b[k*n+j];
             c[i*n+j] = r;
         }
@@ -102,10 +103,10 @@ int main(int argc, char  *argv[])
     int nVal[] = {64,128,256,512,1024};
     int numAlgorithm = 3;
     int length = sizeof(nVal) / sizeof(nVal[0]);
-    int fun;
+    int fun,i;
     printf("\n*********** Register Reuse ***********\n");
     for( fun = 0; fun <numAlgorithm; fun++ ) {
-        for (int i = 0; i < length; i++) {
+        for (i = 0; i < length; i++) {
             int n = nVal[i] * nVal[i];
 
 //            allocandRandomSample(a,b,c,n);
@@ -115,9 +116,10 @@ int main(int argc, char  *argv[])
             c = (double *) calloc(sizeof(double), n);
 
             srand(time(NULL));
-            for (int i = 0; i < n; i++) {
-                a[i] = rand() % 100 + 1;
-                b[i] = rand() % 100 + 1;
+            int j;
+            for (j = 0; j < n; j++) {
+                a[j] = rand() % 100 + 1;
+                b[j] = rand() % 100 + 1;
             }
 //            for (int i = 0; i < n; i++) {
 //              printf("%f", a[i]);
