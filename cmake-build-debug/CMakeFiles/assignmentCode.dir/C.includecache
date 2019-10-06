@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/vincent/Learning Data/cs211HighPerformanceComputing/assignmentCode/main.c
+stdio.h
+-
+stdlib.h
+-
+time.h
+-
+math.h
+-
+sys/time.h
+-
+
