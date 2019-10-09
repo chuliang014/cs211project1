@@ -265,6 +265,7 @@ void dgemm3(double *a, double *b, double *c, int n){
             //end 
         }  
     }
+    //cal last row and column
     calLastRowandColumn(a,b,c,n);
 
     t2 = get_sec();
